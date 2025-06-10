@@ -1,3 +1,7 @@
 #import "/globals.typ": *
 
-#new-section-slide("Introduction")
+= Introduction
+
+---
+
+#components.adaptive-columns(outline(indent: 1em))
