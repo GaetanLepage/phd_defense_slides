@@ -1,4 +1,4 @@
-#import "/imports/touying.typ": *
+#import "/globals.typ": *
 
 #import "@preview/numbly:0.1.0": numbly
 

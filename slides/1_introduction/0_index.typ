@@ -1,3 +1,3 @@
-#import "/imports/touying.typ": *
+#import "/globals.typ": *
 
 #new-section-slide("Introduction")
