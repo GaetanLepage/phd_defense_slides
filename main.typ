@@ -8,7 +8,8 @@
   footer: self => self.info.institution,
   config-info(
     title: [
-      From Sound to Action: Deep Learning for Audio-Based Localization and Navigation in Robotics
+      From Sound to Action:\
+      Deep Learning for Audio-Based Localization and Navigation in Robotics
     ],
     subtitle: [PhD defense],
     author: [Gaétan Lepage],
@@ -19,9 +20,12 @@
   ),
 )
 
+
 #set heading(
-  numbering: numbly("{1}.",
-  default: "1.1")
+  numbering: numbly(
+    "{1}.",
+    default: "1.1",
+  ),
 )
 
 #title-slide()
