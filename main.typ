@@ -37,4 +37,4 @@
 
 #title-slide()
 
-#include "slides/_index.typ"
+#include "slides/0_index.typ"
