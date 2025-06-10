@@ -25,3 +25,5 @@
 )
 
 #title-slide()
+
+#include "slides/_index.typ"
