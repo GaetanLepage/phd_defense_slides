@@ -7,15 +7,21 @@
   aspect-ratio: "16-9",
   footer: self => self.info.institution,
   config-info(
-    title: [Title],
-    subtitle: [Subtitle],
-    author: [Authors],
-    date: datetime.today(),
-    institution: [Institution],
-    logo: emoji.city,
+    title: [
+      From Sound to Action: Deep Learning for Audio-Based Localization and Navigation in Robotics
+    ],
+    subtitle: [PhD defense],
+    author: [Gaétan Lepage],
+    //date: datetime.today(),
+    date: "July 15, 2025",
+    institution: [Université Grenoble Alpes],
+    logo: image("assets/logo_uga.svg"),
   ),
 )
 
-#set heading(numbering: numbly("{1}.", default: "1.1"))
+#set heading(
+  numbering: numbly("{1}.",
+  default: "1.1")
+)
 
 #title-slide()
