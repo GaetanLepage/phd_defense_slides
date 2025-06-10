@@ -18,6 +18,14 @@
     institution: [Université Grenoble Alpes],
     logo: image("assets/logo_uga.svg"),
   ),
+  config-colors(
+    primary: rgb("#eb811b"),
+    primary-light: rgb("#d6c6b7"),
+    secondary: rgb("#23373b"),
+    neutral-lightest: rgb("#fafafa"),
+    neutral-dark: rgb("#23373b"),
+    neutral-darkest: rgb("#23373b"),
+  ),
 )
 
 
