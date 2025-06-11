@@ -4,4 +4,4 @@
 
 ---
 
-#components.adaptive-columns(outline(indent: 1em))
+#components.adaptive-columns(outline(indent: 1em, depth: 1))
