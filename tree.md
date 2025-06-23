@@ -22,6 +22,8 @@
 
 ## Acoustic simulation (simulator)
 
+_8 slides_
+
 > Two possible ways to start:
 > - Importance of simulation for applying data-intensive methods
 > - Start directly with introducing how acoustic reverberation works
@@ -34,6 +36,9 @@
     - Motivation
     - In the real-world, there are reverberation -> We need to model this phenomenon
     - Essential to use data-intensive techniques
+1. RIR
+    - (fig) Schema
+    - Convolution formula
 1. Existing methods for reverberation simulation (taxonomy)
     - Numerical simulation
     - Geometrical Acoustics
@@ -99,7 +104,7 @@ _~11 slides_
 
 ## Active Sound Source Localization
 
-_9-11 slides_
+_12 slides_
 
 1. Motivation
     - Robots are moving
@@ -112,6 +117,14 @@ _9-11 slides_
 1. Method#2: Pipeline
     - (fig) pipeline schema
     - (fig) Explain map shifting
+1. Method#3a: static SSL model
+    - General idea of spectrum regression
+    - (fig) Add representation (and formula) of DoA representation
+    - Ground truth encoding
+1. Method#3b: SSL backbone architecture
+    - (fig) Figure of the architecture
+    - Mention the loss function
+    - Mention the training process
 1. Method#3: Aggregation strategies
     - Simple averaging strategy
     - (fig) U-Net
@@ -136,7 +149,7 @@ _9-11 slides_
 
 ## Deep Reinforcement Learning for Sound-Driven Navigation
 
-_~11 slides_
+_12 slides_
 
 1. Motivation:
     - Move to hear better
@@ -157,8 +170,9 @@ _~11 slides_
     - (fig) Example
 1. Agent:
     - Network architecture
-    - Loss functions? (or in PPO? or not needed)
     - Backbone pre-training
+1. Focus on Backbone pre-training
+    - (fig) Single-source SSL architecture
 1. Reward
     - Importance of reward design
     - Final formula
