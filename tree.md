@@ -60,48 +60,6 @@ _8 slides_
 - Reverberation bootstrapping
 - Performance :/
 
-## Sound source localization
-
-_~11 slides_
-
-1. Motivation + task definition
-    - Schema of the task
-    - Variations:
-        - Single-source
-        - Multi-source
-1. Method#1a: Neural network for single-source
-1. Method#1b: Loss function for single-source
-1. Exp#1a: Evaluation setup
-    - Metrics (MAE)
-    - Dataset
-    - ...
-1. Exp#1b: impact of reverberation
-    - Graph (and table?) of SSL performance depending on T_60
-1. Transition to multi-source
-    - Problem statement
-    - Difference with single-source (challenge of representation and output format)
-1. Method#2a:
-    - General idea of spectrum regression
-    - (fig) Add representation (and formula) of DoA representation
-    - Ground truth encoding
-1. Method#2b: Deep neural network architecture
-    - (fig) Figure of the architecture
-    - Mention the loss function
-1. Exp#2a: Metrics
-1. Exp#2b: Results
-    - (fig) Examples
-    - (fig|table) Impact of number of sources (table or line plot)
-1. Exp#2c: Sequence processing
-    - (fig) Network predictions over time
-1. Conclusion
-
-### Things ignored
-- various ablation studies for single-source
-- epsilon-loss
-- normalization
-- ablation study on sources' angular proximity
-
-
 ## Active Sound Source Localization
 
 _12 slides_
