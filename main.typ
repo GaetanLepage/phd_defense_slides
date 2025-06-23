@@ -25,6 +25,13 @@
     neutral-dark: rgb("#23373b"),
     neutral-darkest: rgb("#23373b"),
   ),
+  // TODO
+  config-common(
+    bibliography-as-footnote: bibliography(
+      title: none,
+      "bibliography.bib",
+    ),
+  ),
 )
 
 
@@ -38,3 +45,6 @@
 #title-slide()
 
 #include "slides/0_index.typ"
+
+// #bibliography("bibliography.bib")
+#show: magic.bibliography-as-footnote.with(bibliography("bibliography.bib", title: none))
