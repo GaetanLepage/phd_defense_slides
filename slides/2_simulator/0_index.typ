@@ -13,7 +13,7 @@
   *Objectives:*
   - Modelling realistic acoustic environments
   - Simulating sound propagation in reverberant rooms
-  - Provide high-level primitives for eperimenting with robotic auditory perception
+  - Provide high-level primitives for experimenting with robotic auditory perception
 
   #pause
 
@@ -31,12 +31,12 @@
   ]
   #image("figures/rir_schema.svg", height: 45%)
 ][
-  // #set text(.9em)
+  #set text(.9em)
   *Room Impulse Response:*
   - Characterizes the reverberation properties of the room
   - Computed for each source-microphone pair
   - $T_60$ measures the reverberation level
-  - Resulting signal is obtained using the RIR as a convolution filter
+  - The resulting image/microphone signal is obtained by convolving each source signal with the corresponding RIR, and summing over the sources
 
   #pause
 
@@ -148,7 +148,7 @@
   #set text(size: 1.2em)
   - Complete solution for modelling various acoustic robotics scenarios
   - High-level, intuitive API to easily and quickly build on top of
-  - Extraction of various spectral representation of simulated signals
+  - Extraction of various spectral representations of simulated signals
   - Great flexibility allowing for various use-cases:
     - Dataset generation
     - Modelling interactive scenarios where both microphones and sources can move

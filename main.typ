@@ -41,6 +41,7 @@
 // - Titles capitalization
 // - Progress indicator
 // - biblio items number reset at each slide
+// - Increase font in figures
 
 
 #set heading(numbering: numbly(

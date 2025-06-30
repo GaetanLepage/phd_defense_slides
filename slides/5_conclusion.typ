@@ -16,9 +16,9 @@
 
 #slide(title: "Main Limitations")[
 
-  - Study *limited to simulated environments*. Transferring algorithms trained in virtual environemnts to real robots is a challenging, yet necessary endeavour.\
+  - Study *limited to simulated environments*. Transferring algorithms trained in virtual environments to real robots is a challenging, yet necessary endeavour.\
     #pause
-  - Task and agent constraints. Several *simplification assumptions* were made in the different tasks.\
+  - Task and agent constraints. Several *simplifying assumptions* were made in the different tasks.\
     - Static sources,
     - Simplistic robot acoustic modelling: free-field microphone array (no HRTF)
     - Limitation to 2D geometric settings: no consideration for the elevation component

@@ -11,7 +11,7 @@
   #set text(size: .9em)
   - SSL (Sound Source Localization): estimate the position of one or multiple sound sources
     - Multiple variations of the task
-    - Dense scientific litterature: from classical sound processing methods~@gustafsson2004source~@schmidt1986multiple to deep learning techniques~@grumiaux2022survey
+    - Dense scientific literature: from classical sound processing methods~@gustafsson2004source~@schmidt1986multiple to deep learning techniques~@grumiaux2022survey
     - Often applied to robotics @argentieri2015survey
   #let height = 20%
   #only(1)[
@@ -31,23 +31,25 @@
 ]
 
 #slide(title: "From Static to Active SSL", align: top)[
-  #heading(depth: 2, outlined: false, numbering: none)[Active SSL]
+  // #heading(depth: 2, outlined: false, numbering: none)[Active SSL]
+  //
+  #set text(size: .9em)
 
   *Motivation:*
-  - Real-world robotics scenarios are dynamic
+  - Real-world robotics scenarios are often dynamic
   - Static SSL frameworks struggle predicting the source-array distance
 
   #pause
 
   *Intuition:*
   - Aggregate instantaneous angular estimates over time
-  - Leverage the robot movement to refine 2D position predictions of the sources localizations
-
+  - Leverage the robot movement to refine the predictions of the sources' 2D position
   #pause
 
-  *Litterature:*
-  - Several works in the Robotics litterature @nakadai2000active @nguyen2018autonomous @bustamante2016towards
-  - Lack of deep-learning-based methods
+  *Literature:*
+  - Several works in the Robotics literature @nakadai2000active @nguyen2018autonomous @bustamante2016towards
+  - Lack of deep-learning-based methods\
+    Multiple works involving moving sources (e.g. LOCATA challenge @evers2020locata), but only few considering mobile microphones
 ]
 
 // #slide(title: "Problem statement")[
@@ -63,22 +65,25 @@
 ]
 
 
-#slide(title: "Static SSL model", repeat: 2)[
+#slide(title: "Static SSL Model (1/2): DoA Spectrum Regression")[
+  // #set text(size: .9em)
   - Encode DoA as a continuous function over $[-pi, pi]$~@he_neural_2021
   - Discretized over 360 values
   - Can represent an arbitrary number of sources
-  - Ground truth is encoded by Gaussians
-  - The SSL task becomes a DoA spectrum regression:
+  - Ground-truth DoA of each source is represented with a Gaussian window centered on it
+  - The SSL task becomes a DoA spectrum regression (with a DNN for e.g.):
     $
       cal(L) = norm(hat(o) - o)_2^2
     $
-][
-  #only(1)[#image("figures/doa_encoding.svg")]
+  #set align(center)
+  // TODO: add an example with prediction too!
+  #image("figures/doa_encoding.svg", width: 50%)
 ]
+
 
 #anim_slide(
   5,
-  title: "Static localizer",
+  title: "Static SSL Model (2/2): Network Architecture",
   image-prefix: "/slides/3_active_ssl/figures/multisource_nn_architecture_",
   image-height: 80%,
 )
@@ -151,7 +156,7 @@
 
 
 #slide(repeat: 3, title: "Clustering")[
-  $->$ *Extract descrete 2D position predictions from the heatmap*
+  $->$ *Extract discrete 2D position predictions from the heatmap*
 
   + Low values are filtered out from the egocentric heatmap (threshold $tau$)
     #pause
@@ -196,7 +201,14 @@
   ]
 ][
   #v(2em)
+
+  #let sample_index = $i$
+  #let pos(char, index) = $char_(#sample_index, index)$
+  #let gt(index) = $#pos($X$, index)$
+  #let pred(index) = $#pos($hat(X)$, index)$
+  #let dist(index) = $norm(#pred(index) - #gt(index))_2$
   #only("2-")[
+    #set text(size: .8em)
     $
       #m (
         hat(X)^i_k,
@@ -205,8 +217,8 @@
         1
         #h(2em)
         // estimation is "close enough"
-          &&                                                  "if" d (k) < delta \
-          && #h(1em)"and" k = limits("argmin")_(k' in {1, dots, hat(z_i)}) d(k'), // it is the closest of all
+          &&                                                   "if" #dist($k$) < delta \
+          && #h(1em)"and" k = limits("argmin")_(k' in {1, dots, hat(z_i)}) #dist($k'$), // it is the closest of all
         0 && "otherwise,"
       )
     $
@@ -244,13 +256,14 @@
   #let height = 45%
   #stack(
     dir: ltr,
-    figure(image("figures/combination_gt.svg", height: height), caption: "Ground truth"),
+    figure(image("figures/combination_gt.svg", height: height), caption: "Ground truth", numbering: none),
     figure(
       image(
         "figures/combination_avg.svg",
         height: height,
       ),
       caption: "Average",
+      numbering: none,
     ),
     figure(
       image(
@@ -258,6 +271,7 @@
         height: height,
       ),
       caption: "DNN",
+      numbering: none,
     ),
   )
   #pause
@@ -270,6 +284,6 @@
   - Complete pipeline for active multi-source localization
   - Training of the static SSL model and the U-Net blender using synthetic datasets generated from our simulator
   - Leveraging of a static SSL deep-learning model
-  - Aggregation of information accross time to build fine 2D position estimates:
+  - Aggregation of information accross time to build fine 2D position estimates
   - Deep U-Net style architecture for combining heatmaps
 ]

@@ -44,7 +44,7 @@
 
   #v(2em)
 
-  - WER suffers from reverberation
+  - WER increases as reverberation grows
   - Robot positioning impacts ASR performance
   - Correct positioning matters more as $T_60$ increases
 ]
@@ -56,14 +56,16 @@
   - Based on this observation, it decides what its next move should be;
   - The environment rewards the robot based on a WER estimate for its current position;
 
-  $->$ Reinforcement Learning very well suits this problem
+  $->$ Reinforcement learning is very well suited to this problem.
 ]
 
 #slide(repeat: 3, title: "Reinforcement Learning", align: left + top)[
-  RL solves sequential decision problems, formalized as *Markov Decision Processes*.
+  #set text(size: .9em)
+  RL solves sequential decision problems, formalized as *Markov Decision Processes (MDPs)*.
+
   #only("2-")[
     At each step:
-    - The #text(rgb("#9673A6"))[agent] senses the #text(rgb("#D79B00"))[environment] by observing the #text(rgb("#00994D"))[the state $s_t$] $in cal(S)$
+    - The #text(rgb("#9673A6"))[agent] senses the #text(rgb("#D79B00"))[environment] by observing the #text(rgb("#00994D"))[state $s_t$] $in cal(S)$
     - It chooses an #text(rgb("#004C99"))[action $a_t$] in the action set $cal(A)$
     - It receives a #text(rgb("#B85450"))[reward $r_t$].
   ]
@@ -78,6 +80,7 @@
       $
         r_t = cases(
           mu_W & quad "if the agent tries to hit a wall",
+          " ",
           mu_C exp(- xi_C)
           - mu_m bb(1) (a_t = "`FORWARD`") & quad "otherwise,"
         )
