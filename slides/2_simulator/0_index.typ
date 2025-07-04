@@ -6,8 +6,14 @@
 
 = Acoustic Robot Simulator
 
-#slide(title: "Motivation")[
-  #todo[Probably missing another figure here]
+#slide(title: "Motivations")[
+  // #todo[Probably missing another figure here]
+  *Motivations:*
+  - Experimenting on real robotic platforms is limiting
+  - Collecting significant amounts of data
+  - Lack of holistic approaches to interactive acoustic simulation
+
+  // #pause
 
   #image("figures/reflection_types.svg")
   *Objectives:*
@@ -15,11 +21,6 @@
   - Simulating sound propagation in reverberant rooms
   - Provide high-level primitives for experimenting with robotic auditory perception
 
-  #pause
-
-  *Motivations:*
-  - Collecting significant amounts of data
-  - Lack of holistic approaches to interactive acoustic simulation
 
 ]
 
@@ -65,7 +66,7 @@
 
 #slide(title: "Existing Simulation Methods", align: top, composer: (2fr, 1fr))[
 
-  - Numerical simulation~@botteldooren1994acoustical~@raghuvanshi2009efficient:
+  - Numerical simulation~@botteldooren1994acoustical@raghuvanshi2009efficient:
     $
       nabla^2 bold(p) = 1 / (c^2) (partial^2 bold(p)) / (partial t^2) " (Helmotz equation)"
     $
@@ -116,6 +117,7 @@
   mic_array = SquareArray(
     position=np.array([3.0, 3.0, 1.0]),
     orientation=np.array([-1.0, 1.0, 0.0]),
+    center_to_mic_dist=2, # cm
   )
   ```
   #pause
@@ -143,6 +145,14 @@
 ]
 
 #anim_slide(3, title: "Modelling Active Scenarios", image-prefix: "/slides/2_simulator/figures/simulator_workflow_")
+
+#slide(title: "Performance", align: center)[
+  #let im1 = figure(image("figures/pyroomacoustics_flamegraph.png", width: 49.5%), caption: "PyRoomAcoustics backend")
+  #let im2 = figure(image("figures/gpurir_flamegraph.png", width: 50%), caption: "gpuRIR backend")
+  #stack(dir: ltr, spacing: 1em, im1, im2)
+
+  #include "perf_table.typ"
+]
 
 #slide(title: "Summary")[
   #set text(size: 1.2em)

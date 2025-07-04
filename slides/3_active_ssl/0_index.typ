@@ -10,9 +10,9 @@
   // #set align(top)
   #set text(size: .9em)
   - SSL (Sound Source Localization): estimate the position of one or multiple sound sources
-    - Multiple variations of the task
     - Dense scientific literature: from classical sound processing methods~@gustafsson2004source~@schmidt1986multiple to deep learning techniques~@grumiaux2022survey
     - Often applied to robotics @argentieri2015survey
+    - Multiple variations of the task
   #let height = 20%
   #only(1)[
     #image("figures/ssl_task_mapping_single_source.svg", height: height)
@@ -47,21 +47,29 @@
   #pause
 
   *Literature:*
-  - Several works in the Robotics literature @nakadai2000active @nguyen2018autonomous @bustamante2016towards
+  - Several works in the Robotics literature~@nakadai2000active @nguyen2018autonomous @bustamante2016towards
   - Lack of deep-learning-based methods\
-    Multiple works involving moving sources (e.g. LOCATA challenge @evers2020locata), but only few considering mobile microphones
+    Multiple works involving moving sources (e.g. LOCATA challenge~@evers2020locata), but only few considering mobile microphones
 ]
 
 // #slide(title: "Problem statement")[
 //
 // ]
 
-#slide(title: "Approach")[
-  - Project static SSL DoA spectrum to egocentric maps
+#slide(repeat: 2, title: "Approach", composer: (3fr, 2fr))[
+  - Discrete step process
+  - Project static SSL predictions to a 2D egocentric view
   - Aggregate these maps into a single final heatmap
+
+  #only(1)[
+    #image("figures/map_single_step.svg", height: 60%)
+  ]
+  #only(2)[
+    #image("figures/combination_dnn.svg", height: 60%)
+  ]
 ][
   #set align(center)
-  #image("figures/robot_moving.svg", height: 70%)
+  #image("figures/robot_moving.svg", width: 100%)
 ]
 
 
@@ -70,7 +78,7 @@
   - Encode DoA as a continuous function over $[-pi, pi]$~@he_neural_2021
   - Discretized over 360 values
   - Can represent an arbitrary number of sources
-  - Ground-truth DoA of each source is represented with a Gaussian window centered on it
+  - Ground-truth DoA of each source is represented with a discretized Gaussian window centered on it
   - The SSL task becomes a DoA spectrum regression (with a DNN for e.g.):
     $
       cal(L) = norm(hat(o) - o)_2^2
@@ -105,13 +113,13 @@
 
   #only("2-")[
     Two methods were explored:
-    - Averaging:
+    - Naive averaging:
     $
       bold(hat(M))_t = 1 / H sum_(t'=0)^(H-1) M_(t - t')
     $
   ]
   #only("3-")[
-    - U-Net @ronneberger2015u:
+    - U-Net model @ronneberger2015u:
     $
       bold(hat(M))_t = Psi_"DNN" (M_(t - H + 1), dots, M_t)
     $
@@ -150,23 +158,24 @@
   // ]
 ]
 
-#slide(title: "Neural network-based aggregation")[
-  #image("figures/nn_architecture.svg")
+#slide(title: "Neural network-based aggregation", composer: (2fr, 1fr))[
+  #place(dx: -1em, image("figures/nn_architecture.svg", width: 110%))
+][
+  #image("figures/combination_gt.svg")
+  $
+    cal(L) = norm(cal(M)_t - cal(M)_t^*)_F
+  $
 ]
 
 
-#slide(repeat: 3, title: "Clustering")[
+#slide(title: "Clustering")[
   $->$ *Extract discrete 2D position predictions from the heatmap*
 
   + Low values are filtered out from the egocentric heatmap (threshold $tau$)
-    #pause
   + The DBSCAN algorithm @schubert_dbscan_2017 is used to cluster pixels into several groups
-    #pause
   + The position of the highest-value pixel of each cluster is used as the final detection
 ][
-  #only("1-")[
-    #image("figures/clustering.svg")
-  ]
+  #image("figures/clustering.svg")
 ]
 
 #slide(title: "Experimental Setup")[
@@ -185,10 +194,21 @@
 #let m = text(olive)[$m$]
 #let prec = text(maroon)[Precision]
 #let recall = text(eastern)[Recall]
+#let delta = text(orange)[$delta$]
 #slide(title: "Evaluation Metrics", repeat: 4, align: top)[
-  #v(1em) //TODO use padding
+
+  #only(1)[
+    #set align(bottom)
+    #image("figures/metrics_1.svg", height: 40%)
+  ]
+  #only("2-")[
+    #set align(bottom)
+    #image("figures/metrics_2.svg", height: 40%)
+  ]
+  // #v(1em) //TODO use padding
   // TODO delta en couleur
-  We define a threshold $delta$ for defining correct detections
+  #set text(size: .9em)
+  We define a threshold #delta for defining correct detections
 
   #only("2-")[
     + #m counts the number of positive prediction-GT matches
@@ -217,9 +237,9 @@
         1
         #h(2em)
         // estimation is "close enough"
-          &&                                                   "if" #dist($k$) < delta \
+          &&                                                  "if" #dist($k$) < #delta \
           && #h(1em)"and" k = limits("argmin")_(k' in {1, dots, hat(z_i)}) #dist($k'$), // it is the closest of all
-        0 && "otherwise,"
+        0 && "otherwise"
       )
     $
   ]
@@ -233,7 +253,7 @@
         hat(X)_(i, k),
         X_(i, k)
       )
-      ) / (sum_i hat(z)_i),
+      ) / (sum_i hat(z)_i)
     $
   ]
   #only("4-")[
@@ -246,7 +266,7 @@
         hat(X)_(i, k),
         X_(i, k)
       )
-      ) / (sum_i z_i).
+      ) / (sum_i z_i)
     $
   ]
 ]

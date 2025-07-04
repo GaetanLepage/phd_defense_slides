@@ -4,6 +4,9 @@
 // #import "/touying/lib.typ": *
 #import themes.metropolis: *
 
+#let bib = bibliography("bibliography.bib", title: none)
+#let orange = rgb("#eb811b")
+
 #show: metropolis-theme.with(
   aspect-ratio: "16-9",
   // footer: self => self.info.institution,
@@ -20,7 +23,7 @@
     // logo: image("assets/logo_uga.svg"),
   ),
   config-colors(
-    primary: rgb("#eb811b"),
+    primary: orange,
     primary-light: rgb("#d6c6b7"),
     secondary: rgb("#23373b"),
     neutral-lightest: rgb("#fafafa"),
@@ -30,18 +33,17 @@
   config-common(
     new-section-slide-fn: none,
     // show-strong-with-alert: false,
-    show-bibliography-as-footnote: bibliography(
-      title: none,
-      "bibliography.bib",
-    ),
+    show-bibliography-as-footnote: bib,
   ),
 )
 
-// TODO:
-// - Titles capitalization
-// - Progress indicator
-// - biblio items number reset at each slide
-// - Increase font in figures
+// Do not number figures
+#set figure(numbering: none)
+
+#set super(size: 1em, baseline: 0em)
+#show super: it => {
+  text(orange)[#it]
+}
 
 
 #set heading(numbering: numbly(
@@ -52,5 +54,4 @@
 #title-slide()
 
 #include "slides/0_index.typ"
-// #show: magic.bibliography-as-footnote.with(bibliography("bibliography.bib", title: none))
 #focus-slide[Thank you!]
