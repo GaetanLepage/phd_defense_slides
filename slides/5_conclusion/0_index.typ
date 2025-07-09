@@ -47,3 +47,5 @@
     - Investigate RL agents' lack of generalization.\
     - Solve more diverse and challenging MDPs (changing room geometries, moving sources, noisy conditions, etc.)
 ]
+
+#focus-slide[Thank you!]

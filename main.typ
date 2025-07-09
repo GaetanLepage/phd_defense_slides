@@ -54,4 +54,3 @@
 #title-slide()
 
 #include "slides/0_index.typ"
-#focus-slide[Thank you!]
