@@ -15,13 +15,12 @@
 
   // #pause
 
-  #image("figures/reflection_types.svg")
+  // TODO: find a figure for this slide
+  // #image("figures/reflection_types.svg")
   *Objectives:*
-  - Modelling realistic acoustic environments
+  - Modeling realistic acoustic environments
   - Simulating sound propagation in reverberant rooms
   - Provide high-level primitives for experimenting with robotic auditory perception
-
-
 ]
 
 
@@ -66,18 +65,24 @@
 
 #slide(title: "Existing Simulation Methods", align: top, composer: (2fr, 1fr))[
 
+  #v(1em)
+  // #set text(size: .9em)
+
   - Numerical simulation~@botteldooren1994acoustical@raghuvanshi2009efficient:
-    $
-      nabla^2 bold(p) = 1 / (c^2) (partial^2 bold(p)) / (partial t^2) " (Helmotz equation)"
-    $
+    - Approximation of the solution of a physical equation (Helmotz for e.g.)
+    - Numerical solver (FDTD, BEM, etc.)
+    - Accurate, but computationally expensive
+    // $
+    //   nabla^2 bold(p) = 1 / (c^2) (partial^2 bold(p)) / (partial t^2) " (Helmotz equation)"
+    // $
     #pause
   - Geometrical Acoustics
-    - Ray-tracing~@cao2016interactive,
+    - Ray-tracing~@cao2016interactive
     - Image Source Model~@allen_image_1979
 
   #show footnote.entry: set text(size: 5pt)
 
-  -> Generate RIR from a 3D room specification
+  *Simulation:* Generate RIR from a 3D room specification
 ][
   #image("figures/ray_tracing.png", height: 6em)
   #image("figures/image_source.svg", height: 6.2em)
@@ -144,23 +149,26 @@
   ```
 ]
 
-#anim_slide(3, title: "Modelling Active Scenarios", image-prefix: "/slides/2_simulator/figures/simulator_workflow_")
+#anim_slide(3, title: "Modeling Active Scenarios", image-prefix: "/slides/2_simulator/figures/simulator_workflow_")
 
 #slide(title: "Performance", align: center)[
-  #let im1 = figure(image("figures/pyroomacoustics_flamegraph.png", width: 49.5%), caption: "PyRoomAcoustics backend")
-  #let im2 = figure(image("figures/gpurir_flamegraph.png", width: 50%), caption: "gpuRIR backend")
-  #stack(dir: ltr, spacing: 1em, im1, im2)
+  // #let im1 = figure(image("figures/pyroomacoustics_flamegraph.png", width: 49.5%), caption: "PyroomAcoustics backend")
+  // #let im2 = figure(image("figures/gpurir_flamegraph.png", width: 50%), caption: "gpuRIR backend")
+  // #stack(dir: ltr, spacing: 1em, im1, im2)
+  #image("figures/benchmark.svg", width: 100%)
+
+  #v(2em)
 
   #include "perf_table.typ"
 ]
 
-#slide(title: "Summary")[
+#slide(title: "Summary - Acoustic Simulator")[
   #set text(size: 1.2em)
-  - Complete solution for modelling various acoustic robotics scenarios
-  - High-level, intuitive API to easily and quickly build on top of
-  - Extraction of various spectral representations of simulated signals
-  - Great flexibility allowing for various use-cases:
+  - Complete solution for modeling *various acoustic robotics scenarios*
+  - *High-level, intuitive API* to easily and quickly build on top of
+  - Extraction of *various spectral representations* of simulated signals
+  - Great *flexibility* allowing for various use-cases:
     - Dataset generation
-    - Modelling interactive scenarios where both microphones and sources can move
+    - Modeling interactive scenarios where both microphones and sources can move
     - Use as an environment to train Deep RL agents
 ]

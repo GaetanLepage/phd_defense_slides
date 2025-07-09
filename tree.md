@@ -32,7 +32,7 @@ _8 slides_
 >
 > Where do we talk about the downstream use-cases
 
-1. Modelling realistic acoustic environments:
+1. Modeling realistic acoustic environments:
     - Motivation
     - In the real-world, there are reverberation -> We need to model this phenomenon
     - Essential to use data-intensive techniques

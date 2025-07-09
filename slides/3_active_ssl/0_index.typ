@@ -6,8 +6,7 @@
 
 = Active Sound Source Localization
 
-#slide(title: "From Static to Active SSL", repeat: 2, align: top)[
-  // #set align(top)
+#slide(title: "The Static SSL Problem", repeat: 2)[
   #set text(size: .9em)
   - SSL (Sound Source Localization): estimate the position of one or multiple sound sources
     - Dense scientific literature: from classical sound processing methods~@gustafsson2004source~@schmidt1986multiple to deep learning techniques~@grumiaux2022survey
@@ -30,7 +29,7 @@
   ]
 ]
 
-#slide(title: "From Static to Active SSL", align: top)[
+#slide(title: "Active SSL", align: top)[
   // #heading(depth: 2, outlined: false, numbering: none)[Active SSL]
   //
   #set text(size: .9em)
@@ -47,7 +46,7 @@
   #pause
 
   *Literature:*
-  - Several works in the Robotics literature~@nakadai2000active @nguyen2018autonomous @bustamante2016towards
+  - Several works in the Robotics literature~@nakadai2000active @nguyen2017long @bustamante2016towards
   - Lack of deep-learning-based methods\
     Multiple works involving moving sources (e.g. LOCATA challenge~@evers2020locata), but only few considering mobile microphones
 ]
@@ -75,17 +74,20 @@
 
 #slide(title: "Static SSL Model (1/2): DoA Spectrum Regression")[
   // #set text(size: .9em)
-  - Encode DoA as a continuous function over $[-pi, pi]$~@he_neural_2021
-  - Discretized over 360 values
+  - Encode DoA values over $[-pi, pi]$ (discretized)~@he_neural_2021
   - Can represent an arbitrary number of sources
-  - Ground-truth DoA of each source is represented with a discretized Gaussian window centered on it
-  - The SSL task becomes a DoA spectrum regression (with a DNN for e.g.):
+  - Ground-truth DoA values are represented with Gaussians
+  // TODO: add an example with prediction too!
+
+  #{
+    set align(center)
+    image("figures/doa_encoding.svg", width: 50%)
+  }
+
+  - Thanks to this representation, the SSL task becomes a DoA spectrum regression (with a DNN for e.g.):
     $
       cal(L) = norm(hat(o) - o)_2^2
-    $
-  #set align(center)
-  // TODO: add an example with prediction too!
-  #image("figures/doa_encoding.svg", width: 50%)
+    $ // TODO: color hat(o) in red and o in blue (to match the figure)
 ]
 
 
@@ -93,7 +95,7 @@
   5,
   title: "Static SSL Model (2/2): Network Architecture",
   image-prefix: "/slides/3_active_ssl/figures/multisource_nn_architecture_",
-  image-height: 80%,
+  image-height: 100%,
 )
 
 // #slide(title: "Pipeline", align: center, repeat: )[
@@ -109,7 +111,7 @@
 #slide(title: "Aggregation strategy", repeat: 3, align: top)[
   #v(1em)
 
-  $->$ *Aggregate shifted maps into a single heatmap*
+  *Aggregate shifted maps into a single heatmap*
 
   #only("2-")[
     Two methods were explored:
@@ -136,7 +138,6 @@
       #figure(
         image("figures/combination_avg.svg", width: width),
         caption: "Averaging",
-        numbering: none,
       )
     ],
     only("2")[
@@ -146,7 +147,6 @@
       #figure(
         image("figures/combination_dnn.svg", width: width),
         caption: "DNN",
-        numbering: none,
       )
     ],
   )
@@ -158,23 +158,24 @@
   // ]
 ]
 
-#slide(title: "Neural network-based aggregation", composer: (2fr, 1fr))[
-  #place(dx: -1em, image("figures/nn_architecture.svg", width: 110%))
-][
-  #image("figures/combination_gt.svg")
+#slide(title: "Neural Network-Based Aggregation")[
+  // #place(dx: -1em, image("figures/nn_architecture.svg", width: 110%))
+  #image("figures/nn_architecture.svg")
+  #v(2em)
   $
-    cal(L) = norm(cal(M)_t - cal(M)_t^*)_F
+    cal(L) = 1/p^2 norm(cal(M)_t - cal(M)_t^*)_F^2
   $
 ]
 
 
 #slide(title: "Clustering")[
-  $->$ *Extract discrete 2D position predictions from the heatmap*
+  *Extract discrete 2D position predictions from the heatmap*
 
   + Low values are filtered out from the egocentric heatmap (threshold $tau$)
   + The DBSCAN algorithm @schubert_dbscan_2017 is used to cluster pixels into several groups
   + The position of the highest-value pixel of each cluster is used as the final detection
 ][
+  // TODO: add an image of the map after thresholding
   #image("figures/clustering.svg")
 ]
 
@@ -183,10 +184,11 @@
   #set text(size: .8em)
   #place(horizon + left, dx: 61%)[
     - Dataset collection:
+      - 1-4 sources placed randomly
       - The robot starts close to a wall
       - The orientation is drawn randomly at each\ step: $theta_(t+1) tilde cal(N)(theta_t, sigma_theta^2)$
       - The agent moves forward in the new direction\ by 50cm
-      -
+      - The trajectory runs for $H$ steps
   ]
 ]
 
@@ -195,79 +197,56 @@
 #let prec = text(maroon)[Precision]
 #let recall = text(eastern)[Recall]
 #let delta = text(orange)[$delta$]
-#slide(title: "Evaluation Metrics", repeat: 4, align: top)[
+#slide(title: "Evaluation Metrics", repeat: 3, align: top)[
 
   #only(1)[
     #set align(bottom)
-    #image("figures/metrics_1.svg", height: 40%)
+    #image("figures/metrics_1.svg")
   ]
   #only("2-")[
     #set align(bottom)
-    #image("figures/metrics_2.svg", height: 40%)
+    #image("figures/metrics_2.svg")
   ]
-  // #v(1em) //TODO use padding
-  // TODO delta en couleur
-  #set text(size: .9em)
-  We define a threshold #delta for defining correct detections
+  // #set text(size: .9em)
 
-  #only("2-")[
-    + #m counts the number of positive prediction-GT matches
-  ]
-  #only("3-")[
-    + The #prec measures the proportion of correct matches among the predictions
-  ]
-  #only("4-")[
-    + The #recall counts the proportion of GT positions that have correcty been identified
-  ]
+  // #only("2-")[
+  //   + #m counts the number of positive prediction-GT matches
+  // ]
+  // #only("3-")[
+  //   + The #prec measures the proportion of correct matches among the predictions
+  // ]
+  // #only("4-")[
+  //   + The #recall counts the proportion of GT positions that have correcty been identified
+  // ]
 ][
-  #v(2em)
+  // #v(2em)
+  - Define a threshold #delta for defining correct detections
+  - Match predictions and ground truths
 
   #let sample_index = $i$
   #let pos(char, index) = $char_(#sample_index, index)$
   #let gt(index) = $#pos($X$, index)$
   #let pred(index) = $#pos($hat(X)$, index)$
   #let dist(index) = $norm(#pred(index) - #gt(index))_2$
+  #let preds = text(rgb("#9673A6"))[\#predictions]
+  #let gt = text(rgb("#004C99"))[\#sources]
+  #let correct = text(rgb("#009900"))[\#correct]
+
   #only("2-")[
-    #set text(size: .8em)
     $
-      #m (
-        hat(X)^i_k,
-        X^i_j
-      ) = cases(
-        1
-        #h(2em)
-        // estimation is "close enough"
-          &&                                                  "if" #dist($k$) < #delta \
-          && #h(1em)"and" k = limits("argmin")_(k' in {1, dots, hat(z_i)}) #dist($k'$), // it is the closest of all
-        0 && "otherwise"
-      )
+      // #prec = "#correct" / "#predictions"
+      "Precision" = #correct / #preds
+    $
+    $
+      // #prec = "#correct" / "#predictions"
+      "Recall" = #correct / #gt
     $
   ]
+
   #only("3-")[
-    $
-      #prec = (
-      sum_i
-      sum_(j=1)^(z_i)
-      sum_(k=1)^(hat(z)_i)
-      #m (
-        hat(X)_(i, k),
-        X_(i, k)
-      )
-      ) / (sum_i hat(z)_i)
-    $
-  ]
-  #only("4-")[
-    $
-      #recall = (
-      sum_i
-      sum_(j=1)^(z_i)
-      sum_(k=1)^(hat(z)_i)
-      #m (
-        hat(X)_(i, k),
-        X_(i, k)
-      )
-      ) / (sum_i z_i)
-    $
+    In this example:
+    - $"Precision" = 1 / 3 approx 33%$
+    - $"Recall" = 1 / 2 = 50%$
   ]
 ]
 
@@ -276,14 +255,13 @@
   #let height = 45%
   #stack(
     dir: ltr,
-    figure(image("figures/combination_gt.svg", height: height), caption: "Ground truth", numbering: none),
+    figure(image("figures/combination_gt.svg", height: height), caption: "Ground truth"),
     figure(
       image(
         "figures/combination_avg.svg",
         height: height,
       ),
       caption: "Average",
-      numbering: none,
     ),
     figure(
       image(
@@ -291,19 +269,18 @@
         height: height,
       ),
       caption: "DNN",
-      numbering: none,
     ),
   )
   #pause
   #include "aggregation_methods.typ"
 ]
 
-#slide(title: "Summary")[
+#slide(title: "Summary - Active SSL")[
   #set text(size: 1.2em)
 
-  - Complete pipeline for active multi-source localization
-  - Training of the static SSL model and the U-Net blender using synthetic datasets generated from our simulator
+  - *Complete pipeline* for active multi-source localization
+  - *Aggregation of information accross time* to build fine 2D position estimates
   - Leveraging of a static SSL deep-learning model
-  - Aggregation of information accross time to build fine 2D position estimates
-  - Deep U-Net style architecture for combining heatmaps
+  - *Deep U-Net style architecture* for combining heatmaps
+  - Training of the *static SSL model* and the *U-Net blender* using synthetic datasets generated from our simulator
 ]

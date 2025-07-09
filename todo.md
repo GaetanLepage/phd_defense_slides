@@ -13,6 +13,9 @@
 - [ ] IEEE TASLP for "Trans. Speech Audio Process."
 - [ ] spacing in table cells
 
+## Extra slides
+- [ ] IDP/ILD interaural features
+
 ## Questions from reviewers
 - [ ] matrix norm for ASSL training
 

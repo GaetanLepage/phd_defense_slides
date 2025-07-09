@@ -13,15 +13,15 @@
 
 #subpar.grid(
   figure(image("wer_map_200ms.svg", height: height), caption: [
-    $T_(60) = 200"ms"$.
+    $T_(60) = 200"ms"$
   ]),
 
   figure(image("wer_map_500ms.svg", height: height), caption: [
-    $T_(60) = 500"ms"$.
+    $T_(60) = 500"ms"$
   ]),
 
   figure(image("wer_map_800ms.svg", height: height), caption: [
-    $T_(60) = 800"ms"$.
+    $T_(60) = 800"ms"$
   ]),
 
   columns: 3,

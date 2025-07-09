@@ -3,7 +3,7 @@
 = Introduction
 
 #slide(title: "Social Robotics", composer: (1fr, 2fr))[
-  #figure(image("figures/ari.png"), caption: "The ARI robot, PAL robotics", numbering: none)
+  #image("figures/ari.png")
 ][
   #set text(size: .9em)
   - Social robotics aims to build capable robotic agents.
@@ -16,20 +16,12 @@
 ]
 
 #slide(title: "Challenges of Auditory Perception in Robotics", composer: (2fr, 1fr))[
-  // #{
-  //   set align(center)
-  //   stack(dir: ltr, spacing: 1em, image("figures/interaction.png", height: 40%), image(
-  //     "figures/interaction.png",
-  //     height: 40%,
-  //   ))
-  // }
-
   - Humans mainly communicate through speech
   - Robots must properly understand humans to have relevant interactions
   - Sound can also be used to localize speakers
 
   - Core acoustic tasks in robotics:
-    - Automatic Speech Recognition (ASR) @malik2021automatic
+    - Automatic Speech Recognition (ASR) @yu2016automatic
     - Sound Source Localization (SSL) @argentieri2015survey@grumiaux2022survey
     - Conversational Speech Generation @defossez2024moshi
 ][

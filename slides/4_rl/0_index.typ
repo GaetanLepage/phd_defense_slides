@@ -7,7 +7,7 @@
 = Deep Reinforcement Learning for Sound-Driven Navigation
 
 #slide(title: "Motivation & problem statement")[
-  *Goal:* Perceptually motivated navigation @majumder2021move2hear
+  *Goal:* Perceptually motivated navigation~@majumder2021move2hear
 
   - Robots are expected to _understand_ human speech
   - _Automatic Speech Recognition (ASR)_ is the first step of the speech understanding pipeline
@@ -21,22 +21,26 @@
 
   #pause
 
-  #let s = text(orange)[$s$]
-  #let d = text(red)[$d$]
-  #let i = text(green)[$i$]
+  #let s = text(orange)[\#substitutions]
+  #let d = text(red)[\#deletions]
+  #let i = text(green)[\#insertions]
+  #let n = text(blue)[\#words]
   $
-    "WER" = (#s + #d + #i) / n
+    "WER" = (#s + #d + #i) / #n
   $
-  - #s: number of substitutions
-  - #d: number of deletions
-  - #i: number of insertions
-  - $n$: number of words in the reference
+  // - #s: number of substitutions
+  // - #d: number of deletions
+  // - #i: number of insertions
+  // - $n$: number of words in the reference
 
   #pause
   *Example:*
   - Reference: #h(2em) _Obviously, he was #text(green)[\_\_]#h(.3em) able to catch the #text(orange)[last~] bus on time #text(red)[today]._
   - Prediction: #h(2em - 0.2em) _Obviously, he was #text(green)[not] able to catch the #text(orange)[past] bus on time #text(red)[\_\_\_\_]#h(.3em)._
-  $"WER" = (1 + 1 + 1) / 12 = 0.25$
+  #pause
+  $
+    "WER" = (1 + 1 + 1) / 12 = 0.25
+  $
 ]
 
 #slide(title: "Reverberation impact on WER")[
@@ -49,7 +53,7 @@
   - Correct positioning matters more as $T_60$ increases
 ]
 
-#slide(title: "Problem statement")[
+#slide(title: "Problem Statement")[
   *Idea:* Frame the navigation problem as a sequential decision problem
 
   - At each step, the robot records a short audio snippet;
@@ -59,7 +63,7 @@
   $->$ Reinforcement learning is very well suited to this problem.
 ]
 
-#slide(repeat: 3, title: "Reinforcement Learning", align: left + top)[
+#slide(repeat: 3, title: "Reinforcement Learning", align: left + top, composer: (10fr, 9fr))[
   #set text(size: .9em)
   RL solves sequential decision problems, formalized as *Markov Decision Processes (MDPs)*.
 
@@ -67,22 +71,21 @@
     At each step:
     - The #text(rgb("#9673A6"))[agent] senses the #text(rgb("#D79B00"))[environment] by observing the #text(rgb("#00994D"))[state $s_t$] $in cal(S)$
     - It chooses an #text(rgb("#004C99"))[action $a_t$] in the action set $cal(A)$
-    - It receives a #text(rgb("#B85450"))[reward $r_t$].
+    - It receives a #text(rgb("#B85450"))[reward $r_t$]
   ]
 
   #only(3)[
     #line(length: 100%)
     Our environment:
-    - the #text(rgb("#B85450"))[reward] is a decreasing function of the WER:
+    - The #text(rgb("#B85450"))[reward] is a decreasing function of the WER:
 
     #place(auto, float: true, scope: "column", dx: 6em, dy: 0em)[
-      #set text(size: .8em)
+      #set text(size: .9em)
       $
         r_t = cases(
-          mu_W & quad "if the agent tries to hit a wall",
-          " ",
+          -mu_W & quad "if the agent tries to hit a wall",
           mu_C exp(- xi_C)
-          - mu_m bb(1) (a_t = "`FORWARD`") & quad "otherwise,"
+          - mu_m bb(1) (a_t = "`FORWARD`") & quad "otherwise"
         )
       $
     ]
@@ -146,7 +149,7 @@
   #image("figures/directional_map.svg")
 ]
 
-#slide(title: "Agent 1rchitecture", align: center + horizon)[
+#slide(title: "Agent Architecture", align: center + horizon)[
   #image("figures/rl_architecture_v3_horizontal.svg", width: 100%)
   #set align(left)
   *Two-stage training:*
@@ -180,6 +183,7 @@
 
 #slide(title: "Agent Trajectories", align: center)[
   #image("figures/traj.svg")
+  // #image("figures/traj.gif")
 ]
 
 #slide(title: "Comparison with Baselines", config: (show-strong-with-alert: false))[
@@ -212,7 +216,7 @@
   #include "table_baselines.typ"
 ]
 
-#slide(title: "Summary")[
+#slide(title: "Summary - Deep RL for Navigation")[
   #set text(size: 1.2em)
   - Definition of a novel *perceptually-motivated navigation task*
   - Improving the *ASR performance* by position optimization
