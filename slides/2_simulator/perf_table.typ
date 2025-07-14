@@ -1,22 +1,26 @@
 #import "/globals.typ": *
+#show math.equation: set align(left)
+#let units = "(s, (%))"
 #table(
   // SETTINGS
   columns: 5,
   stroke: none,
   align: left + horizon,
+  // row-gutter: .5em,
+  inset: 0% + 10pt,
 
   // HEADER
   toprule,
 
-  table.header([], [$T_"sim"$ (s, (%))], [$t_"RIR"$ (s, (%))], [$t_"FFT"$ (s, (%))], [$t_"STFT"$ (s, (%))]),
+  table.header([], [$T_"sim" #units$], [$t_"RIR" #units$], [$t_"conv" #units$], [$t_"STFT" #units$]),
 
   midrule,
 
   // rdc "python rl_audio_nav/supervised_localization/bin/evaluate.py 60X 0"
 
   // ROWS
-  [Pyroomacoustics], [124 (100%)], [109 (87.9%)], [11.62 (9.37%)], [2.28 (1.84%)],
-  [gpuRIR], [*21.69* (100%)], [*3.69* (17.01%)], [14.56 (67.1%)], [2.41 (11.1%)],
+  [gpuRIR], [*21.7* (100%)], [*3.69* (17%)], [14.6 (67%)], [2.4 (11%)],
+  [Pyroomacoustics], [124 (100%)], [109 (88%)], [11.6 (9.4%)], [2.3 (1.8%)],
 
   bottomrule,
 )

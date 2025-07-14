@@ -7,7 +7,7 @@
 #let pi-theta = $pi_theta$
 #let pi-optimal = $pi^*$
 #let pi-still = $pi_"still"$
-#let pi-orient = $pi_"orient"$
+#let pi-still-orient = $pi_"still orient"$
 #let pi-random = $pi_"random"$
 #let pi-safe-random = $pi_"safe random"$
 
@@ -26,10 +26,10 @@
 #let pi-safe-random-mfc-wer-dir = 22.38
 #let pi-safe-random-rew-wer-dir = 1408
 
-#let pi-orient-mfc-wer-omni = 20.87
-#let pi-orient-rew-wer-omni = 1495
-#let pi-orient-mfc-wer-dir = 16.56
-#let pi-orient-rew-wer-dir = 1789
+#let pi-still-orient-mfc-wer-omni = 20.87
+#let pi-still-orient-rew-wer-omni = 1495
+#let pi-still-orient-mfc-wer-dir = 16.56
+#let pi-still-orient-rew-wer-dir = 1789
 
 #let exp-300-mfc-wer = 4.18 // omni
 #let exp-300-rew-wer = 2432 // omni
@@ -58,12 +58,13 @@
   show math.equation.where(block: true): block
   it
 }
+// #show math.equation: set align(left)
 #table(
   // SETTINGS
   columns: 5 * (1fr,),
   align: left + horizon,
   stroke: none,
-  // inset: .4em,
+  inset: 0% + 7.5pt,
 
   // HEADER
   toprule,
@@ -83,8 +84,6 @@
   // Omnidirection: exp300
   // Directional: exp301
 
-  [#pi-still], [#pi-still-rew-wer-omni], [#pi-still-mfc-wer-omni], [#pi-still-rew-wer-dir], [#pi-still-mfc-wer-dir],
-
   [#pi-random],
   [#pi-random-rew-wer-omni],
   [#pi-random-mfc-wer-omni],
@@ -97,11 +96,13 @@
   [#pi-safe-random-rew-wer-dir],
   [#pi-safe-random-mfc-wer-dir],
 
-  [#pi-orient],
-  [#pi-orient-rew-wer-omni],
-  [#pi-orient-mfc-wer-omni],
-  [#pi-orient-rew-wer-dir],
-  [#pi-orient-mfc-wer-dir],
+  [#pi-still], [#pi-still-rew-wer-omni], [#pi-still-mfc-wer-omni], [#pi-still-rew-wer-dir], [#pi-still-mfc-wer-dir],
+
+  [#pi-still-orient],
+  [#pi-still-orient-rew-wer-omni],
+  [#pi-still-orient-mfc-wer-omni],
+  [#pi-still-orient-rew-wer-dir],
+  [#pi-still-orient-mfc-wer-dir],
 
   [#pi-theta], [*#exp-300-rew-wer*], [*#exp-300-mfc-wer*], [*#exp-301-rew-wer*], [*#exp-301-mfc-wer*],
 

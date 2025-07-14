@@ -5,7 +5,7 @@
   columns: 6,
   stroke: none,
   align: left + horizon,
-  inset: .5em,
+  // inset: 0% + 8pt,
 
   // HEADER
   toprule,
@@ -17,7 +17,7 @@
     header-gt-spectrum,
     header-prec,
     header-recall,
-    [],
+    [#v(1em)],
     header-prec,
     header-recall,
   ),

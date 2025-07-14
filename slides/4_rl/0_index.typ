@@ -53,6 +53,7 @@
   - Correct positioning matters more as $T_60$ increases
 ]
 
+#let C_t = text(maroon)[$C_t$]
 #slide(title: "Problem Statement")[
   *Idea:* Frame the navigation problem as a sequential decision problem
 
@@ -66,6 +67,8 @@
 #slide(repeat: 3, title: "Reinforcement Learning", align: left + top, composer: (10fr, 9fr))[
   #set text(size: .9em)
   RL solves sequential decision problems, formalized as *Markov Decision Processes (MDPs)*.
+
+  #todo[cite @sutton1998reinforcement]
 
   #only("2-")[
     At each step:
@@ -84,7 +87,7 @@
       $
         r_t = cases(
           -mu_W & quad "if the agent tries to hit a wall",
-          mu_C exp(- xi_C)
+          mu_C exp(- xi_C #C_t)
           - mu_m bb(1) (a_t = "`FORWARD`") & quad "otherwise"
         )
       $
@@ -163,10 +166,10 @@
     set align(center)
     only(1)[#image("figures/ssl_backbone_1.svg", height: image_height)]
     only(2)[#image("figures/ssl_backbone_2.svg", height: image_height)]
-    only(3)[#image("figures/ssl_backbone_3.svg", height: image_height)]
-    only("4-")[#image("figures/ssl_backbone_4.svg", height: image_height)]
+    only("3-4")[#image("figures/ssl_backbone_3.svg", height: image_height)]
+    only(5)[#image("figures/ssl_backbone_4.svg", height: image_height)]
   }
-  #only(5)[
+  #only("4-")[
     *Training loss:*
 
     #let t = text(olive)[$theta$]

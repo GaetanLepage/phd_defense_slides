@@ -32,7 +32,7 @@
   #image("figures/rir_schema.svg", height: 45%)
 ][
   #set text(.9em)
-  *Room Impulse Response:*
+  *RIR properties:*
   - Characterizes the reverberation properties of the room
   - Computed for each source-microphone pair
   - $T_60$ measures the reverberation level
@@ -40,13 +40,13 @@
 
   #pause
 
-  *Single source:*
+  *Single-source microphone signal:*
   $
     y[n] = (h * x)[n]
   $
 
   #pause
-  *Multi source:*
+  *Multi-source microphone signal:*
   $
     y[n] = sum_(i=1)^(n_s) (h_i * x_i)[n]
   $
@@ -65,24 +65,24 @@
 
 #slide(title: "Existing Simulation Methods", align: top, composer: (2fr, 1fr))[
 
-  #v(1em)
+  // #v(1em)
   // #set text(size: .9em)
 
-  - Numerical simulation~@botteldooren1994acoustical@raghuvanshi2009efficient:
-    - Approximation of the solution of a physical equation (Helmotz for e.g.)
+  - *Numerical simulation*~@botteldooren1994acoustical@raghuvanshi2009efficient:
+    - Approximation of the solution of a physical equation (e.g. Helmholtz)
     - Numerical solver (FDTD, BEM, etc.)
     - Accurate, but computationally expensive
     // $
     //   nabla^2 bold(p) = 1 / (c^2) (partial^2 bold(p)) / (partial t^2) " (Helmotz equation)"
     // $
     #pause
-  - Geometrical Acoustics
+  - *Geometrical Acoustics*
     - Ray-tracing~@cao2016interactive
     - Image Source Model~@allen_image_1979
 
   #show footnote.entry: set text(size: 5pt)
 
-  *Simulation:* Generate RIR from a 3D room specification
+  *RIR simulation:* Generate RIR from a 3D room specification
 ][
   #image("figures/ray_tracing.png", height: 6em)
   #image("figures/image_source.svg", height: 6.2em)
@@ -98,7 +98,7 @@
   #only(3)[
     #image("figures/audio_pipeline_3.svg")
   ]
-  Support for two backend libraries: _PyroomAcoustics_~@scheibler2018pyroomacoustics and _gpuRIR_~@diaz2021gpurir.
+  Support for two backend libraries: _Pyroomacoustics_~@scheibler2018pyroomacoustics and _gpuRIR_~@diaz2021gpurir.
 ]
 
 #slide(title: "Acoustic Simulator for Robotics")[
@@ -151,7 +151,7 @@
 
 #anim_slide(3, title: "Modeling Active Scenarios", image-prefix: "/slides/2_simulator/figures/simulator_workflow_")
 
-#slide(title: "Performance", align: center)[
+#slide(title: "Performance", align: center, config: (show-strong-with-alert: false))[
   // #let im1 = figure(image("figures/pyroomacoustics_flamegraph.png", width: 49.5%), caption: "PyroomAcoustics backend")
   // #let im2 = figure(image("figures/gpurir_flamegraph.png", width: 50%), caption: "gpuRIR backend")
   // #stack(dir: ltr, spacing: 1em, im1, im2)

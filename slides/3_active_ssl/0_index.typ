@@ -9,8 +9,8 @@
 #slide(title: "The Static SSL Problem", repeat: 2)[
   #set text(size: .9em)
   - SSL (Sound Source Localization): estimate the position of one or multiple sound sources
-    - Dense scientific literature: from classical sound processing methods~@gustafsson2004source~@schmidt1986multiple to deep learning techniques~@grumiaux2022survey
-    - Often applied to robotics @argentieri2015survey
+    - Dense scientific literature: from classical sound processing methods~@gustafsson2004source@schmidt1986multiple to deep learning techniques~@grumiaux2022survey
+    - Often applied to robotics~@argentieri2015survey
     - Multiple variations of the task
   #let height = 20%
   #only(1)[
@@ -55,7 +55,7 @@
 //
 // ]
 
-#slide(repeat: 2, title: "Approach", composer: (3fr, 2fr))[
+#slide(repeat: 2, title: "Proposed Approach", composer: (3fr, 2fr))[
   - Discrete step process
   - Project static SSL predictions to a 2D egocentric view
   - Aggregate these maps into a single final heatmap
@@ -81,12 +81,16 @@
 
   #{
     set align(center)
-    image("figures/doa_encoding.svg", width: 50%)
+    // image("figures/doa_encoding.svg", width: 50%)
+    // TODO: show in two steps
+    include "figures/doa_encoding.typ"
   }
 
-  - Thanks to this representation, the SSL task becomes a DoA spectrum regression (with a DNN for e.g.):
+  #let gt = text(rgb(0, 0, 200))[$o$]
+  #let pred = text(red)[$hat(o)$]
+  - Thanks to this representation, the SSL task becomes a DoA spectrum regression:
     $
-      cal(L) = norm(hat(o) - o)_2^2
+      cal(L) = norm(#pred - #gt)_2^2
     $ // TODO: color hat(o) in red and o in blue (to match the figure)
 ]
 
@@ -95,16 +99,16 @@
   5,
   title: "Static SSL Model (2/2): Network Architecture",
   image-prefix: "/slides/3_active_ssl/figures/multisource_nn_architecture_",
-  image-height: 100%,
+  image-width: 100%,
 )
 
 // #slide(title: "Pipeline", align: center, repeat: )[
 //   #image("figures/pipeline_2lines.svg")
 // ]
 #anim_slide(
-  6,
+  9,
   title: "Active sound source localization pipeline",
-  // TODO: make final
+  // TODO: add one more step before shifting
   image-prefix: "/slides/3_active_ssl/figures/pipeline_",
 )
 
@@ -176,6 +180,7 @@
   + The position of the highest-value pixel of each cluster is used as the final detection
 ][
   // TODO: add an image of the map after thresholding
+  // TODO: remove axis
   #image("figures/clustering.svg")
 ]
 
@@ -196,8 +201,8 @@
 #let m = text(olive)[$m$]
 #let prec = text(maroon)[Precision]
 #let recall = text(eastern)[Recall]
-#let delta = text(orange)[$delta$]
-#slide(title: "Evaluation Metrics", repeat: 3, align: top)[
+// #let delta = text(orange)[$delta$]
+#slide(title: "Standard Evaluation Metrics", repeat: 3, align: top, composer: (4fr, 5fr))[
 
   #only(1)[
     #set align(bottom)
@@ -220,7 +225,7 @@
   // ]
 ][
   // #v(2em)
-  - Define a threshold #delta for defining correct detections
+  - Define a threshold $delta$ for defining correct detections
   - Match predictions and ground truths
 
   #let sample_index = $i$
@@ -280,7 +285,7 @@
 
   - *Complete pipeline* for active multi-source localization
   - *Aggregation of information accross time* to build fine 2D position estimates
-  - Leveraging of a static SSL deep-learning model
+  - Leveraging of a *static SSL deep-learning model*
   - *Deep U-Net style architecture* for combining heatmaps
   - Training of the *static SSL model* and the *U-Net blender* using synthetic datasets generated from our simulator
 ]

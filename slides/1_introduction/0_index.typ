@@ -16,11 +16,11 @@
 ]
 
 #slide(title: "Challenges of Auditory Perception in Robotics", composer: (2fr, 1fr))[
-  - Humans mainly communicate through speech
-  - Robots must properly understand humans to have relevant interactions
-  - Sound can also be used to localize speakers
+  - Humans mainly communicate through *speech*
+  - Robots must properly *understand humans* to have relevant interactions
+  - Sound can also be used to *localize speakers*
 
-  - Core acoustic tasks in robotics:
+  - Core *acoustic tasks* in robotics:
     - Automatic Speech Recognition (ASR) @yu2016automatic
     - Sound Source Localization (SSL) @argentieri2015survey@grumiaux2022survey
     - Conversational Speech Generation @defossez2024moshi

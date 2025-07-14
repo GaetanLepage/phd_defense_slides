@@ -6,7 +6,9 @@
 
 = Conclusion
 
-#slide(title: "Summary of Contributions")[
+#slide(title: "Summary of Contributions", align: top)[
+
+  #v(5em)
 
   + Design and implementation of an holistic *simulation library* for modeling audio-based interactions.
     #pause
@@ -18,12 +20,15 @@
     Training and evaluation of Deep-RL agent solving this task.
 ]
 
-#slide(title: "Main Limitations")[
+#slide(title: "Limitations & Short-Term Perspectives", align: top)[
+
+  // #v(1em)
 
   - Study *limited to simulated environments*. Transferring algorithms trained in virtual environments to real robots is a challenging, yet necessary endeavour.\
     #pause
   - Task and agent constraints. Several *simplifying assumptions* were made in the different tasks.\
-    - Static sources,
+    - Static sources *$->$ consider moving sources*
+    - free-field microphone array *$->$ TODO* // TODO
     - Simplistic robot acoustic modeling: free-field microphone array (no HRTF)
     - Limitation to 2D geometric settings: no consideration for the elevation component
     Targetting more challenging and realistic problem formulations would improve the overall relevance of the proposed methods.
@@ -34,7 +39,9 @@
     - Relying on pre-computed WER cost maps allows the RL environment to run at a high refresh rate, but doesn't easily scale to multiple moving sources.
 ]
 
-#slide(title: "Perspectives")[
+#slide(title: "Perspectives", align: top)[
+
+  #v(4em)
 
   // TODO: capitalization
   - *Embodied and multimodal audio perception:*\
@@ -48,4 +55,13 @@
     - Solve more diverse and challenging MDPs (changing room geometries, moving sources, noisy conditions, etc.)
 ]
 
-#focus-slide[Thank you!]
+#focus-slide(config: (
+  config-methods: (
+    init: (self: none, body) => {
+      body
+    },
+  ),
+  config-common: (
+    show-strong-with-alert: false,
+  ),
+))[Thank you!]
