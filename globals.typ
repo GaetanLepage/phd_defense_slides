@@ -8,7 +8,7 @@
   [*TODO:* #body]
 }
 
-#let anim_slide(n, image-prefix: "", title: "", image-height: 100%) = {
+#let anim_slide(n, image-prefix: "", title: "", image-height: auto, image-width: auto) = {
   slide(repeat: n, title: title, align: center, self => [
     #let (uncover, only, alternatives) = utils.methods(self)
 
@@ -17,6 +17,7 @@
         #image(
           image-prefix + str(i) + ".svg",
           height: image-height,
+          width: image-width,
         )
       ]
     }
