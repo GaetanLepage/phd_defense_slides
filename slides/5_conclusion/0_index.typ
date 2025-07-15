@@ -28,10 +28,9 @@
     #pause
   - Task and agent constraints. Several *simplifying assumptions* were made in the different tasks.\
     - Static sources *$->$ consider moving sources*
-    - free-field microphone array *$->$ TODO* // TODO
-    - Simplistic robot acoustic modeling: free-field microphone array (no HRTF)
-    - Limitation to 2D geometric settings: no consideration for the elevation component
-    Targetting more challenging and realistic problem formulations would improve the overall relevance of the proposed methods.
+    - free-field microphone array *$->$ consider HRTF*
+    - Limitation to 2D geometric settings: *$->$ extension to 3D (elevation component)*
+    Targetting *more challenging and realistic problem formulations* would improve the overall relevance of the proposed methods.
     #pause
   - *Engineering and algorithmic challenges:*
     - The RL agent's training is expensive, and tedious.

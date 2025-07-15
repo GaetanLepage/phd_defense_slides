@@ -26,10 +26,10 @@
 
 #slide(align: top, title: "Room Impulse Response", composer: (4fr, 6fr))[
   #set align(left)
-  #block[
-    #image("figures/rir_plot.svg", height: 45%)
-  ]
-  #image("figures/rir_schema.svg", height: 45%)
+  // #place(image("figures/rir_plot.svg", height: 45%))
+  #image("figures/rir_plot.svg", height: 45%)
+  #place(image("figures/t_60.svg", height: 55%), dx: 1.1em)
+  // #image("figures/rir_schema.svg", height: 45%)
 ][
   #set text(.9em)
   *RIR properties:*

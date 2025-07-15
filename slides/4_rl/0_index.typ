@@ -54,6 +54,11 @@
 ]
 
 #let C_t = text(maroon)[$C_t$]
+#let state_color = rgb("#00994D")
+#let action_color = rgb("#004C99")
+#let reward_color = rgb("#B85450")
+#let state_space = text(state_color)[$cal(S)$]
+#let action_space = text(action_color)[$cal(A)$]
 #slide(title: "Problem Statement")[
   *Idea:* Frame the navigation problem as a sequential decision problem
 
@@ -64,45 +69,72 @@
   $->$ Reinforcement learning is very well suited to this problem.
 ]
 
-#slide(repeat: 3, title: "Reinforcement Learning", align: left + top, composer: (10fr, 9fr))[
+#slide(title: "Reinforcement Learning", align: left + top, composer: (10fr, 9fr))[
   #set text(size: .9em)
-  RL solves sequential decision problems, formalized as *Markov Decision Processes (MDPs)*.
+  RL @sutton1998reinforcement solves sequential decision problems, formalized as *Markov Decision Processes (MDPs)* @bellman1957markovian.
 
-  #todo[cite @sutton1998reinforcement]
+  At each step:
+  - The #text(rgb("#9673A6"))[agent] senses the #text(rgb("#D79B00"))[environment] by observing the #text(state_color)[state $s_t$] in the state space #state_space
+  - It chooses an #text(action_color)[action $a_t$] in the action set #action_space
+  - It receives a #text(reward_color)[reward $r_t$]
 
-  #only("2-")[
-    At each step:
-    - The #text(rgb("#9673A6"))[agent] senses the #text(rgb("#D79B00"))[environment] by observing the #text(rgb("#00994D"))[state $s_t$] $in cal(S)$
-    - It chooses an #text(rgb("#004C99"))[action $a_t$] in the action set $cal(A)$
-    - It receives a #text(rgb("#B85450"))[reward $r_t$]
-  ]
-
-  #only(3)[
-    #line(length: 100%)
-    Our environment:
-    - The #text(rgb("#B85450"))[reward] is a decreasing function of the WER:
-
-    #place(auto, float: true, scope: "column", dx: 6em, dy: 0em)[
-      #set text(size: .9em)
-      $
-        r_t = cases(
-          -mu_W & quad "if the agent tries to hit a wall",
-          mu_C exp(- xi_C #C_t)
-          - mu_m bb(1) (a_t = "`FORWARD`") & quad "otherwise"
-        )
-      $
+  The goal is to maximize the cumulated discounted reward:
+  $
+    max_pi
+    EE_pi [
+      sum_(t=0)^infinity gamma^t r_(t + 1)
     ]
-  ]
+  $
+
+  // #line(length: 100%)
 ][
   // #let height = 70%
   #set align(center)
-  #only(2)[
-    #image("figures/rl_schema_1.svg", width: 100%)
-  ]
-  #only(3)[
-    #image("figures/rl_schema_2.svg", width: 100%)
-  ]
+  #image("figures/rl_schema_1.svg", width: 100%)
 ]
+
+#let a-stay = `STAY`
+#let a-forward = `FORWARD`
+#let a-left = `TURN_LEFT`
+#let a-right = `TURN_RIGHT`
+// , composer: (10fr, 9fr)
+#slide(title: "Proposed Environment Formulation")[
+  // #set align(horizon)
+  #set text(.9em)
+  Our environment is only *partially observable*.
+  - *State space:* possible agent positions in the room:\
+    $#state_space subset RR^2 times [0, 2 pi]$
+  - *Observation space:* Spectral representation\ of recorded audio:\
+    $Omega subset CC^(C times F times T)$
+  - *Action space:* $#action_space = \{ #a-stay, #a-forward, #a-left, #a-right \}$
+  - *Reward:* decreasing function of the WER:
+
+  #place(top + right, image("figures/rl_schema_2.svg", width: 19em))
+
+  $
+    #text(reward_color)[$r_t$] = cases(
+      -mu_W & quad "if the agent tries to hit a wall",
+      mu_C exp(- xi_C #C_t)
+      - mu_m bb(1) (a_t = #a-forward) & quad "otherwise"
+    )
+  $
+
+  // #place(auto, float: true, scope: "column", dx: 6em, dy: 0em)[
+  //   #set text(size: .9em)
+  //   $
+  //     #text(reward_color)[$r_t$] = cases(
+  //       -mu_W & quad "if the agent tries to hit a wall",
+  //       mu_C exp(- xi_C #C_t)
+  //       - mu_m bb(1) (a_t = #a-forward) & quad "otherwise"
+  //     )
+  //   $
+  // ]
+]
+// [
+//   // #set align(top)
+//   #v(-10.5em)
+//   #image("figures/rl_schema_2.svg", width: 100%)
+// ]
 
 
 #slide(title: "WER Cost Maps", composer: (3fr, 2fr))[
