@@ -103,12 +103,13 @@
 
 #slide(title: "Acoustic Simulator for Robotics")[
 ]
+// TODO: virer le sous-texte dans "RIR simulation library"
 #anim_slide(5, title: "Simulator Architecture", image-prefix: "/slides/2_simulator/figures/simulator_architecture_")
 
 #slide(title: "Code Example")[
   #set text(18pt)
   ```python
-  from rl_audio_nav.audio_simulator import GpuRirRoom, SquareArray, AudioSimilator
+  from rl_audio_nav.audio_simulator import GpuRirRoom, BinauralArray, AudioSimilator
 
   ```
   #pause
@@ -119,10 +120,10 @@
   ```
   #pause
   ```python
-  mic_array = SquareArray(
+  mic_array = BinauralArray(
     position=np.array([3.0, 3.0, 1.0]),
     orientation=np.array([-1.0, 1.0, 0.0]),
-    center_to_mic_dist=2, # cm
+    mic_dist=2, # cm
   )
   ```
   #pause
@@ -138,7 +139,7 @@
   ```
   #pause
   ```python
-  # (4, F, T) complex tensor
+  # (2, F, T) complex tensor
   stft = audio_simulator.get_agent_stft()
 
   ```

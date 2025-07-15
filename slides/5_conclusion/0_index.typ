@@ -26,7 +26,7 @@
 
   - Study *limited to simulated environments*. Transferring algorithms trained in virtual environments to real robots is a challenging, yet necessary endeavour.\
     #pause
-  - Task and agent constraints. Several *simplifying assumptions* were made in the different tasks.\
+  - Task and agent constraints. Several assumptions could be relaxed.\
     - Static sources *$->$ consider moving sources*
     - free-field microphone array *$->$ consider HRTF*
     - Limitation to 2D geometric settings: *$->$ extension to 3D (elevation component)*
@@ -38,19 +38,20 @@
     - Relying on pre-computed WER cost maps allows the RL environment to run at a high refresh rate, but doesn't easily scale to multiple moving sources.
 ]
 
-#slide(title: "Perspectives", align: top)[
+#slide(title: "Perspectives")[
 
-  #v(4em)
+  // #v(3em)
 
   // TODO: capitalization
   - *Embodied and multimodal audio perception:*\
     - Combine auditory signals with visual cues to leverage social robots' sensors diversity.
-    #pause
+  #pause
   - *Active perception beyond localization:*\
-    - Explore other navigation objectives: speaker-following, audio-based exploration, information-seeking policy, etc.
-    #pause
+    - Explore other navigation objectives: speaker-following, audio-based exploration, information-seeking policy, etc. @majumder2021move2hear @huang2023audio @huang2025multimodal
+
+  #pause
   - *Model efficiency and generalization:*\
-    - Investigate RL agents' lack of generalization.\
+    - Improve RL agents training efficiency and generalization capabilities.\
     - Solve more diverse and challenging MDPs (changing room geometries, moving sources, noisy conditions, etc.)
 ]
 

@@ -34,7 +34,7 @@
   #set text(size: .9em)
   Robots need to react to their environment and take actions
   - React dynamically to the environment
-  - Accomplish interactive or collaborative tasks @majumder2021move2hear @lathuiliere2019neural
+  - Accomplish interactive or collaborative tasks @majumder2021move2hear@lathuiliere2019neural
   - Several objectives and constraints can be described
 
   Challenges:

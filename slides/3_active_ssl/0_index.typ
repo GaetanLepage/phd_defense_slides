@@ -107,11 +107,12 @@
 // ]
 #anim_slide(
   9,
-  title: "Active sound source localization pipeline",
+  title: "Active Sound Source Localization Pipeline",
   // TODO: add one more step before shifting
   image-prefix: "/slides/3_active_ssl/figures/pipeline_",
 )
 
+// TODO refaire l'anim à la fin
 #slide(title: "Aggregation strategy", repeat: 3, align: top)[
   #v(1em)
 
